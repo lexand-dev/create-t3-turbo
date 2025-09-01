@@ -3,7 +3,7 @@ import "server-only";
 import { cache } from "react";
 import { headers } from "next/headers";
 
-import { initAuth } from "@acme/auth";
+import { initAuth } from "@bite/auth";
 
 import { env } from "~/env";
 
@@ -12,11 +12,11 @@ const baseUrl =
     ? `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`
     : env.VERCEL_ENV === "preview"
       ? `https://${env.VERCEL_URL}`
-      : "http://localhost:3000";
+      : process.env.PUBLIC_BETTER_AUTH_URL!;
 
 export const auth = initAuth({
   baseUrl,
-  productionUrl: `https://${env.VERCEL_PROJECT_PRODUCTION_URL ?? "turbo.t3.gg"}`,
+  productionUrl: `https://${env.VERCEL_PROJECT_PRODUCTION_URL}`,
   secret: env.AUTH_SECRET,
   discordClientId: env.AUTH_DISCORD_ID,
   discordClientSecret: env.AUTH_DISCORD_SECRET,

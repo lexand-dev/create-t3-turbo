@@ -16,7 +16,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         type: "input",
         name: "name",
         message:
-          "What is the name of the package? (You can skip the `@acme/` prefix)",
+          "What is the name of the package? (You can skip the `@bite/` prefix)",
       },
       {
         type: "input",
@@ -28,8 +28,8 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     actions: [
       (answers) => {
         if ("name" in answers && typeof answers.name === "string") {
-          if (answers.name.startsWith("@acme/")) {
-            answers.name = answers.name.replace("@acme/", "");
+          if (answers.name.startsWith("@bite/")) {
+            answers.name = answers.name.replace("@bite/", "");
           }
         }
         return "Config sanitized";
@@ -79,9 +79,9 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
          * Install deps and format everything
          */
         if ("name" in answers && typeof answers.name === "string") {
-          // execSync("pnpm dlx sherif@latest --fix", {
-          //   stdio: "inherit",
-          // });
+          execSync("pnpm dlx sherif@latest --fix", {
+            stdio: "inherit",
+          });
           execSync("pnpm i", { stdio: "inherit" });
           execSync(
             `pnpm prettier --write packages/${answers.name}/** --list-different`,
